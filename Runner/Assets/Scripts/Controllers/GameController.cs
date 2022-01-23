@@ -17,6 +17,7 @@ namespace Assets.Scripts.Controllers
 
         void Start()
         {
+            PlayerPrefs.DeleteAll();
             _generator.Setup();
             _hud.Setup(_player.gameObject);
 

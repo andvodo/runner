@@ -3527,7 +3527,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2033406334}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -3611,7 +3611,6 @@ MonoBehaviour:
   _cloudAssetReference: {fileID: 5946861897458257984, guid: 3e86dae109ef2c94e806d29bf6d7dcb2, type: 3}
   _heartAssetReference: {fileID: 8663989819797662689, guid: e194f18481879534db8f98963dadd062, type: 3}
   _coinAssetReference: {fileID: 603591569878017629, guid: 35336e16345e3c64b884048bf6fdc77b, type: 3}
-  _camera: {fileID: 963194228}
   _cloudZDelta: 9
   _cloudsPerHeart: 50
   _poolGO: {fileID: 478304377}

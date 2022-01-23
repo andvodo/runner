@@ -9,7 +9,6 @@ public class Generator : MonoBehaviour
     [SerializeField] private GameObject _cloudAssetReference;
     [SerializeField] private GameObject _heartAssetReference;
     [SerializeField] private GameObject _coinAssetReference;
-    [SerializeField] private Transform _camera;
     [SerializeField] private  float _cloudZDelta;
     [SerializeField] private  float _cloudsPerHeart;
     [SerializeField] private RectTransform _poolGO;
@@ -25,13 +24,16 @@ public class Generator : MonoBehaviour
     private bool _previousDoubleCloud; // were there two clouds on the same z coordinate
     private int _cloudsSinceLastHeart;
     private int _doubleCloudChanceCoeff = 5;
-
+    private Transform _camera;
+    
     public void Setup()
     {
-        _cloudPool = new ObjectPool(_cloudAssetReference, _camera, _poolGO);
-        _groundPool = new ObjectPool(_groundAssetReference, _camera, _poolGO);
-        _heartPool = new ObjectPool(_heartAssetReference, _camera, _poolGO);
-        _coinPool = new ObjectPool(_coinAssetReference, _camera, _poolGO);
+        _camera = Camera.main.transform;
+
+        _cloudPool = new ObjectPool(_cloudAssetReference, _poolGO);
+        _groundPool = new ObjectPool(_groundAssetReference, _poolGO);
+        _heartPool = new ObjectPool(_heartAssetReference, _poolGO);
+        _coinPool = new ObjectPool(_coinAssetReference, _poolGO);
         
         Vector3 groundSize = _groundAssetReference.GetComponent<BoxCollider>().size;
         _groundZDelta = groundSize.z * 10; // plane is scaled by 10 across z axis
@@ -142,9 +144,9 @@ public class Generator : MonoBehaviour
         private GameObject _gameObjectReference;
         private RectTransform _pool;
         
-        public ObjectPool(GameObject gameObjectReference, Transform camera, RectTransform pool)
+        public ObjectPool(GameObject gameObjectReference, RectTransform pool)
         {
-            _camera = camera;
+            _camera = Camera.main.transform;
             _gameObjectReference = gameObjectReference;
             _pool = pool;
         }
@@ -172,7 +174,7 @@ public class Generator : MonoBehaviour
             {
                 if(ShouldReturnObject(go)) objectsToReturn.Add(go);
             });
-            objectsToReturn.ForEach(go => ReturnObject(go));
+            objectsToReturn.ForEach(ReturnObject);
         }
         
         private bool ShouldReturnObject(GameObject go)
