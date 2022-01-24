@@ -75,6 +75,7 @@ public class Player : MonoBehaviour
     
     public void StartGame()
     {
+        Reset();
         _runSubscription = EventController.Subscribe(new EventSubscription(Run, typeof(RunEvent).ToString()));
     }
     

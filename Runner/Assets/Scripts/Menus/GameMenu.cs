@@ -14,10 +14,10 @@ namespace Assets.Scripts.Menus
 
         private Action _backCallback;
         private int _countNumber;
+        
         public void Open()
         {
             base.Open();
-            _brokenHeart.alpha = 0;
             _countNumber = 3;
             AnimateCountdown();
         }
