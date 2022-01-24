@@ -126,6 +126,7 @@ public class Generator : MonoBehaviour
     {
         GameObject coin = _coinPool.GetObject();
         coin.transform.position = new Vector3(xPosition * _cloudXDelta, 0, _nextCloudZ);
+        coin.SetActive(true);
     }
 
     private void ReturnAllObjectsToPool()

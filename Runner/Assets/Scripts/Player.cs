@@ -6,7 +6,11 @@ using Event = Assets.Scripts.Events.Event;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float _sideCoordinate;
-    [SerializeField] private float _velocity;
+    [SerializeField] private float _startVelocity;
+    [SerializeField] private Animator _planeAnimator;
+
+    private const string MOVE_RIGHT = "MoveRight";
+    private const string MOVE_LEFT = "MoveLeft";
 
     private Rigidbody _playerRB;
 
@@ -18,7 +22,9 @@ public class Player : MonoBehaviour
     private Position _goalPosition = Position.Center;
     private int _currentDirection;
     private int _lives;
-    
+    private int _coins;
+    private float _velocity;
+
     public float Velocity => _velocity;
 
     private Event _lastSwipeEvent;
@@ -28,6 +34,7 @@ public class Player : MonoBehaviour
     public 
     void Awake()
     {
+        _velocity = _startVelocity;
         _playerRB = GetComponent<Rigidbody>();
     }
 
@@ -35,46 +42,52 @@ public class Player : MonoBehaviour
     {
         if (!_playing) return;
         
-        CheckIfXPositionReached();
-        
-        if (GetSwipe(out int direction))
+        if (CheckIfXPositionReached() && GetSwipe(out int direction))
         {
             _currentDirection = direction;
             _lastSwipeEvent = null;
             _lastSwipeTime = 0;
+            _planeAnimator.SetTrigger(direction > 0 ? MOVE_RIGHT : MOVE_LEFT);
         }
         
         Vector3 forwardMovement = Vector3.forward * Time.fixedDeltaTime * _velocity;
-        Vector3 horizontalMovement = transform.right * _currentDirection * Time.fixedDeltaTime * _velocity;
+        Vector3 horizontalMovement = transform.right * _currentDirection * Time.fixedDeltaTime * _startVelocity;
         _playerRB.MovePosition(_playerRB.position + forwardMovement + horizontalMovement);
     }
 
     private void Run(Event runEvent)
     {
-        Debug.Log("Player run");
         SwipeSubscribe();
         _playing = true;
         EventController.Unsubscribe(_runSubscription);
     }
+
+    public void Reset()
+    {
+        _currentPosition = Position.Center;
+        _goalPosition = Position.Center;
+        _currentDirection = 0;
+        _lives = 0;
+        _coins = 0;
+        _velocity = _startVelocity;
+        _playerRB.transform.position = new Vector3(0, 0.5f, 0);
+    }
     
     public void StartGame()
     {
-        _currentPosition = Position.Center;
-        _lives = 0;
-        _playerRB.transform.position = new Vector3(0, 0.5f, 0);
         _runSubscription = EventController.Subscribe(new EventSubscription(Run, typeof(RunEvent).ToString()));
     }
     
     public void EndGame()
     {
         if (!_playing) return;
+        
         _playing = false;
         SwipeUnsubscribe();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.tag);
         if (other.tag == "Cloud")
         {
             if (_lives > 0)
@@ -94,11 +107,17 @@ public class Player : MonoBehaviour
             EventController.CallEvent(new HeartCollectedEvent());
         } else if (other.tag == "Coin")
         {
+            _coins++;
+            if (_coins % 100 == 0)
+            {
+                _velocity *= 1.1f;
+                EventController.CallEvent(new SpeedUpEvent());
+            }
             EventController.CallEvent(new CoinCollectedEvent());
         }
     }
     
-    private void CheckIfXPositionReached()
+    private bool CheckIfXPositionReached()
     {
         if (_goalPosition == Position.Right && _playerRB.transform.position.x > _sideCoordinate
             || _goalPosition == Position.Left && _playerRB.transform.position.x < -_sideCoordinate
@@ -106,7 +125,10 @@ public class Player : MonoBehaviour
         {
             _currentDirection = 0;
             _currentPosition = _goalPosition;
+            return true;
         }
+
+        return false;
     }
 
     private bool GetSwipe(out int direction)

@@ -117,15 +117,15 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 2960}
     - Class: 114
-      Script: {instanceID: 3454}
+      Script: {instanceID: 3456}
     - Class: 114
-      Script: {instanceID: 3820}
+      Script: {instanceID: 3822}
     - Class: 114
-      Script: {instanceID: 3870}
+      Script: {instanceID: 3872}
     - Class: 114
-      Script: {instanceID: 4132}
+      Script: {instanceID: 4134}
     - Class: 114
-      Script: {instanceID: 4362}
+      Script: {instanceID: 4364}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -323,7 +323,7 @@ ScriptsOnlyBuild:
     className: TextMeshProUGUI
   - hash:
       serializedVersion: 2
-      Hash: 9ce7e766f2aa196b56214029ee24f421
+      Hash: 5e8c994acb69c56b47ea8c0e09e51d34
     assemblyName: Assembly-CSharp.dll
     namespaceName: Assets.Scripts.Menus
     className: GameMenu
@@ -365,7 +365,7 @@ ScriptsOnlyBuild:
     className: TestResultRendererCallback
   - hash:
       serializedVersion: 2
-      Hash: 22570ce479d794767a999b7bd9d60ff9
+      Hash: 2a4fa4cecf6f6347ccf9dc6dd70d0de8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player

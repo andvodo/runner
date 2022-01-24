@@ -74,6 +74,7 @@
      <Compile Include="Assets\Scripts\Controllers\SwipeController.cs" />
      <Compile Include="Assets\DOTween_1_2_632\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
      <Compile Include="Assets\Scripts\Events\EventSubscription.cs" />
+     <Compile Include="Assets\Scripts\Events\SpeedUpEvent.cs" />
      <Compile Include="Assets\Scripts\Events\HeartCollectedEvent.cs" />
      <Compile Include="Assets\DOTween_1_2_632\DOTween\Modules\DOTweenModuleUI.cs" />
      <Compile Include="Assets\Scripts\Events\GameEndEvent.cs" />

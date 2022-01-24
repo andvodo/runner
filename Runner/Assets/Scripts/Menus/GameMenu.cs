@@ -10,12 +10,14 @@ namespace Assets.Scripts.Menus
     {
         [SerializeField] private Animator _animator;
         [SerializeField] private TMP_Text _label;
-        
+        [SerializeField] private CanvasGroup _brokenHeart;
+
         private Action _backCallback;
         private int _countNumber;
         public void Open()
         {
             base.Open();
+            _brokenHeart.alpha = 0;
             _countNumber = 3;
             AnimateCountdown();
         }

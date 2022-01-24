@@ -10,10 +10,11 @@ public class CameraController : MonoBehaviour
     
     private Rigidbody _cameraRB;
     private float _velocity;
-    private const float _cameraStartZPosition = -10;
+    private const float _cameraStartZPosition = -12;
     private Action _cameraEndAnimationCallback;
     private EventSubscription _runSubscription;
-    
+    private EventSubscription _speedUpSubscription;
+
     void Awake()
     {
         _cameraRB = GetComponent<Rigidbody>();
@@ -22,6 +23,7 @@ public class CameraController : MonoBehaviour
     public void StartGame()
     {
         _runSubscription = EventController.Subscribe(new EventSubscription(Run, typeof(RunEvent).ToString()));
+        _speedUpSubscription = EventController.Subscribe(new EventSubscription(e => _velocity = _player.Velocity, typeof(SpeedUpEvent).ToString()));
     }
 
     private void Run(Event runEvent)
@@ -37,6 +39,7 @@ public class CameraController : MonoBehaviour
     
     public void EndGame(bool animate, Action callback = null)
     {
+        EventController.Unsubscribe(_speedUpSubscription);
         if (!animate)
         {
             StopCamera();

@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public class GameOverMenu : BaseMenu
 {
@@ -14,12 +15,13 @@ public class GameOverMenu : BaseMenu
 
     public void Play()
     {
+        Close();
         _playCallback?.Invoke();
     }
     
     public void Back()
     {
-        _backCallback?.Invoke();
         Close();
+        _backCallback?.Invoke();
     }
 }
