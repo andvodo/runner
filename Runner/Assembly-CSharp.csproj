@@ -54,7 +54,6 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Events\RunEvent.cs" />
      <Compile Include="Assets\DOTween_1_2_632\DOTween\Modules\DOTweenModuleUtils.cs" />
-     <Compile Include="Assets\Scripts\PowerUp.cs" />
      <Compile Include="Assets\Scripts\Events\SwipeLeftEvent.cs" />
      <Compile Include="Assets\Scripts\ResourceController.cs" />
      <Compile Include="Assets\Scripts\Menus\GameOverMenu.cs" />

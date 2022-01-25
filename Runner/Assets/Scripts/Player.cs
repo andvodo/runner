@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
 
     private const string MOVE_RIGHT = "MoveRight";
     private const string MOVE_LEFT = "MoveLeft";
+    private const string CLOUD_TAG = "Cloud";
+    private const string HEART_TAG = "Heart";
+    private const string COIN_TAG = "Coin";
 
     private Rigidbody _playerRB;
 
@@ -89,7 +92,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Cloud")
+        if (other.tag == CLOUD_TAG)
         {
             if (_lives > 0)
             {
@@ -102,11 +105,11 @@ public class Player : MonoBehaviour
             EventController.CallEvent(new GameEndEvent());
         }
 
-        if (other.tag == "Heart")
+        if (other.tag == HEART_TAG)
         {
             _lives++;
             EventController.CallEvent(new HeartCollectedEvent());
-        } else if (other.tag == "Coin")
+        } else if (other.tag == COIN_TAG)
         {
             _coins++;
             if (_coins % 100 == 0)
